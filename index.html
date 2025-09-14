@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محفظة أعمال - مدير المشاريع المحترف</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* تنسيق عام */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #2980b9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* شريط التنقل */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        /* قسم الرئيسية */
+        #home {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0;
+            margin-top: 80px;
+        }
+        
+        #home h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        #home p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* قسم عني */
+        #about {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .profile-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .bio {
+            flex: 2;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .skill {
+            background-color: #e8f4fc;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* قسم الشهادات */
+        .certificates-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .certificate-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .certificate-img {
+            height: 200px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .certificate-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .certificate-icon {
+            font-size: 3rem;
+            color: #3498db;
+        }
+        
+        .certificate-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .certificate-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .verify-link {
+            margin-top: auto;
+            padding-top: 15px;
+        }
+        
+        /* قسم التواصل */
+        #contact {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+        }
+        
+        #contact h2 {
+            color: white;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #3498db;
+        }
+        
+        /* التذييل */
+        footer {
+            background-color: #1a252f;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        .social-links {
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #3498db;
+            transform: translateY(-5px);
+        }
+        
+        /* التجاوب مع الشاشات المختلفة */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .profile-img {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            #home h1 {
+                font-size: 2.5rem;
+            }
+            
+            #home p {
+                font-size: 1.2rem;
+            }
+            
+            .certificates-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AHMED <span>PORTFOLIO</span></div>
+                <ul>
+                    <li>
+                    <a href="#home">Home</a></li>
+                    <li><a href="#about">about me</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
+    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- قسم الرئيسية -->
+    <section id="home">
+        <div class="container">
+            <h1>Ahmed</h1>
+            <p>
+Management professional with experience in humanitarian and development projects. Skilled in Agile, Scrum, and traditional methodologies.Certified in Google Fundation PM,PMP® pmi Training, and Scrum Master. Passionate about digital transformation, optimizing projects, and leading teams To achieving Strategic goals.
+</p>
+            <a href="#certificates" class="btn">عرض الشهادات</a>
+        </div>
+    </section>
+
+    <!-- قسم عنّي -->
+    <section id="about">
+        <div class="container">
+            <h2>about Me</h2>
+            <div class="about-content">
+                <div class="profile-img">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="الصورة الشخصية">
+                </div>
+                <div class="bio">
+                 <p>
+
+
+مدير مشاريع معتمد يمتلك خبرة عملية في مشاريع العمل الإنساني والتنمية. ماهر في منهجيات إدارة المشاريع التقليدية وAgile وScrum. حاصل على شهادات في Google Project Management، PMP، Scrum Master، وتنفيذ مشاريع WASH. لدي خلفية قوية في إدارة المخاطر، التفاوض، والكتابة المهنية. شغوف بدفع التحول الرقمي، تحسين نتائج المشاريع، وتمكين الفرق لتحقيق الأهداف الاستراتيجية.
+
+</p>
+     
+    
+  
+                    
+                    <h3>Skills:</h3>
+                    <div class="skills">
+                        <span class="skill">إدارة المشاريع</span>
+                        <span class="skill">قيادة الفرق</span>
+                        <span class="skill">التخطيط الاستراتيجي</span>
+                        <span class="skill">إدارة الموارد</span>
+                        <span class="skill">إدارة المخاطر</span>
+                        <span class="skill">التفاوض</span>
+                        <span class="skill">حل المشكلات</span>
+                        <span class="skill">الاتصال الفعال</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الشهادات -->
+    <section id="certificates">
+        <div class="container">
+        
+        
+        
+        
+        
+        
+            <h2>شهاداتي الاحترافية</h2>
+            <p>هذه مجموعة من الشهادات المعتمدة التي حصلت عليها خلال مسيرتي المهنية، مع إمكانية التحقق من كل شهادة عبر الروابط المرفقة.</p>
+            
+            <div class="certificates-container">
+            
+            
+            
+            
+            
+                <!-- شهادة 1 -->
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-certificate certificate-icon"></i>
+                    </div>
+          <h3>PMP© PMI Certificate
+          Training</h3><p>
+          تدريب متقدم حول ادارة المشاريع وفق منهج PMI, يركز على التخطيط والتنفيذ والمراقبة والمتابعة والاغلاق مع اخذ "35" ساعة معتمدة كتدريب معتمد من معهد ادارة المشاريع عبر كورسيرا .</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-building"></i>PMI</span>
+                        <span><i class="far fa-calendar-alt"></i> Ju,2025</span>
+                    </div>
+                    <div class="verify-link">
+                        <a href="https://www.coursera.org/account/accomplishments/specialization/ZPHQDX5F5VNU" class="btn"><i class="fas fa-external-link-alt"></i> التحقق من الشهادة</a>
+                    </div>
+                </div>
+               
+               
+               
+               
+               
+                
+                <!-- شهادة 2 -->
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-certificate certificate-icon"></i>
+                    </div>
+                    <h3>+ComptiA project</h3>
+                    <p>شهادة لإثبات الكفاءة العملية في إدارة المشاريع عبر أدوات وممارسات عملية</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-building"></i> Packt</span>
+                        <span><i class="far fa-calendar-alt"></i>jul,2025               </div>
+                    <div class="verify-link">
+                        <a href="https://coursera.org/share/149c07beffb560d2dcd9a03a89e3237c" class="btn"><i class="fas fa-external-link-alt"></i> التحقق من الشهادة</a>
+                    </div>
+                </div>
+                
+                
+                <!-- شهادة 3 -->
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-certificate certificate-icon"></i>
+                    </div>
+         <h3>University of California PM</h3>
+                    <p> تخصص متقدم من جامعة كاليفورنيا  لتعلم مبادئ إدارة  المشاريع، تطوير الخطط، وإدارة المخاطر</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-building"></i> UCI </span>
+                        <span><i class="far fa-calendar-alt"></i>JUl,2025</span>
+                    </div>
+                    <div class="verify-link">
+                        <a href="https://coursera.org/share/21da4eb665fa1a6b1d6380d36583f773" class="btn"><i class="fas fa-external-link-alt"></i> التحقق من الشهادة</a>
+                    </div>
+                </div>
+                
+                <!-- شهادة 4 -->
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-certificate certificate-icon"></i>
+                    </div>
+                    <h3>Professional ScrumMaster (PSM ®)</h3>
+                 <p> شهادة معتمدة عالمياً لفهم وتطبيق منهجية سكرام في المؤسسات وإدارة الفرق والمشاريع بالاعتماد على إطار Scrum</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-building"></i> Skill Up </span>
+                        <span><i class="far fa-calendar-alt"></i>jun,2025</span>
+                    </div>
+                    <div class="verify-link">
+                        <a href="https://coursera.org/share/ab3eb7af54e0843bc5c8ea2f74758f1b" class="btn"><i class="fas fa-external-link-alt"></i> التحقق من الشهادة</a>
+                    </div>
+                </div>
+                
+    
+                <!-- شهادة 6 -->
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-certificate certificate-icon"></i>
+                    </div>
+                    <h3>Advanced PM,Leadership</h3>
+                  <p>
+دورة متقدمة تهدف إلى تعزيز مهارات إدارة المشاريع والقيادة على مستوى استراتيجي. تركز على إدارة الفرق متعددة التخصصات، اتخاذ القرارات المعقدة، إدارة المخاطر، وتحقيق أهداف المشاريع بكفاءة عالية. كما تشمل تطوير قدرات القيادة، التفكير الاستراتيجي، وتحفيز الفرق لتحقيق الاداء الأمثل. </p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-building"></i> معهد إدارة المشاريع PMI</span>
+                        <span><i class="far fa-calendar-alt"></i> فبراير 2017</span>
+                    </div>
+                    <div class="verify-link">
+                        <a href="https://coursera.org/share/71f88e2e2c59d230263abf2d322a39ac" class="btn"><i class="fas fa-external-link-alt"></i> التحقق من الشهادة</a>
+                    </div>
+                </div>
+                
+                   <!-- شهادة 5 -->
+                <div class="certificate-card">
+                    <div class="certificate-img">
+                        <i class="fas fa-certificate certificate-icon"></i>
+                    </div>
+                    <h3>Six Sigma Yellow Belt</h3>
+                    <p>شهادة الحزام الاصفر في سيكس سيجما لتحسين العمليات وضمان الجودة.</p>
+                    <div class="certificate-meta">
+                        <span><i class="far fa-building"></i> Scrum Study</span>
+                        <span><i class="far fa-calendar-alt"></i>2025</span>
+                    </div>
+                    <div class="verify-link">
+                        <a href="#" class="btn"><i class="fas fa-external-link-alt"></i> التحقق من الشهادة</a>
+                    </div>
+                </div>
+                                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل -->
+    <section id="contact
+    <!-- قسم التواصل -->
+    <section id="contact">
+        <div class="container">
+            <h2>تواصل معي</h2>
+            <p>أنا متاح للفرص الجديدة والتعاون في المشاريع القيادية. لا تتردد في التواصل معي عبر أي من الوسائل التالية:</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <span>ahmedmabdoelkreem@gmail.com</span>
+               
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-facebook contact-icon"></i>
+                    <span><a href="https://www.facebook.com/stihp.en.3" target=Facebook">Facebook/Ahmed Official acount</a></span>    
+                </div>
+                
+                
+                <div class="contact-item">
+                    <i class="fab fa-twitter contact-icon"></i>
+                    <span><a href="#" target="_blank">twitter.com/ahmedsayed</a></span>
+                </div>
+                       </div>
+    <a href="https://wa.me/message/6TY5HI5QHOQBA1" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center;">
+  <span style="margin-right: 8px; font-size: 16px; color: #075E54;">راسلنا على WhatsApp</span>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+       alt="WhatsApp" 
+       style="width:30px; height:30px;">
+</a>        
+                               
+                <div class="contact-item">
+                    <i class="fas fa-phone contact-icon"></i>
+           <span>249924299798+</span>
+                </div>
+     
+                
+                
+                
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+            <p>جميع الحقوق محفوظة &copy; 2025 -Ahmed.M.Abdoelkreem /مديرمشاريع معتمد </p>
+        </div>
+    </footer>
+
+    <script>
+        // كود جافاسكريبت بسيط لتغيي
